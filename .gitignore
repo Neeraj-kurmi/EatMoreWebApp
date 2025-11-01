@@ -1,0 +1,74 @@
+# ======== General ========
+.DS_Store
+Thumbs.db
+*.log
+*.tmp
+*.bak
+*.swp
+
+# ======== Environment files ========
+.env
+.env.local
+.env.development.local
+.env.production.local
+.env.test.local
+application.properties
+application.yml
+application.yaml
+
+# ======== Node / React (frontend) ========
+node_modules/
+dist/
+build/
+.npm/
+.cache/
+coverage/
+vite.config.js.timestamp*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+pnpm-lock.yaml
+
+# ======== Java / Spring Boot (backend) ========
+target/
+!.mvn/wrapper/maven-wrapper.jar
+.mvn/
+**/logs/
+spring.log
+*.class
+*.war
+*.ear
+
+# ======== IDE / Editor files ========
+.vscode/
+.idea/
+*.iml
+*.classpath
+*.project
+*.settings/
+*.factorypath
+
+# ======== OS generated files ========
+ehthumbs.db
+Icon?
+Desktop.ini
+
+# ======== Temporary or backup files ========
+*.orig
+*.rej
+*.swo
+*.swp
+*.swn
+*.bak
+*.tmp
+
+# ======== Test / Coverage ========
+test-output/
+coverage-final.json
+jest-cache/
+jest-test-results.json
+
+# ======== Misc ========
+# Ignore uploaded images, if any (optional)
+uploads/
+public/uploads/
