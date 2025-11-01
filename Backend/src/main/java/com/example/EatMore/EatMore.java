@@ -10,6 +10,5 @@ public class EatMore {
 
 		SpringApplication.run(EatMore.class, args);
 		System.out.println("Application Running....");
-		System.out.println("Asfasddsaf");
 	}
 }
