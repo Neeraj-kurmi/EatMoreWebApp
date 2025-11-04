@@ -1,9 +1,18 @@
 package com.example.EatMore.services;
 
+import com.example.EatMore.dto.AuthResponse;
 import com.example.EatMore.entity.User;
 import com.example.EatMore.repositories.UserRepository;
+import com.example.EatMore.utility.JWTutils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -14,12 +23,19 @@ public class UserService {
     @Autowired
     UserRepository userRepository;
 
+    @Autowired
+    UserDetailsServiceImpl userDetailsService;
+
+    @Autowired
+    AuthenticationManager authenticationManager;
+
     private final CloudinaryService cloudinaryService;
 
     public UserService( CloudinaryService cloudinaryService) {
         this.cloudinaryService = cloudinaryService;
     }
 
+    private static final PasswordEncoder passwordEncoder =new BCryptPasswordEncoder();
 
     public ResponseEntity<?> saveUser(User user){
         try {
@@ -27,6 +43,7 @@ public class UserService {
                 String imageUrl = cloudinaryService.upload(user.getPhoto());
                 user.setPhoto(imageUrl);
             }
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
             userRepository.save(user);
             return ResponseEntity.ok(user);
         } catch (Exception e) {
@@ -37,6 +54,7 @@ public class UserService {
     public ResponseEntity<?> updater(User updatedUser, String id) {
         try {
             User existingUser = userRepository.findById(id).orElse(null);
+
             if (existingUser == null) {
                 return ResponseEntity.badRequest().body("User not found");
             }
@@ -62,22 +80,23 @@ public class UserService {
 
 
     public ResponseEntity<?> loginUser(@RequestBody Map<String ,String>loginCredentials){
-        User usr;
         try{
             String email=loginCredentials.get("email");
             String password=loginCredentials.get("password");
-            if(email==null || password ==null){
-                return null;
+            Authentication authentication=authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(email,password));
+            if (authentication.isAuthenticated()) {
+                UserDetails userDetails=userDetailsService.loadUserByUsername(email);
+                String token=JWTutils.generateToken(userDetails.getUsername());
+                User user=userRepository.findByEmail(email);
+                user.setPassword(null);
+                AuthResponse authRespons=new AuthResponse(token,user);
+                return ResponseEntity.ok(authRespons);
+            }else {
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
             }
-            User user=userRepository.findByEmail(email);
-            if(!(user.getPassword().equals(password))){
-                return null;
-            }
-            usr=user;
-            usr.setPassword(null);
+
         } catch (Exception e) {
-            return null;
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        return ResponseEntity.ok(usr);
     }
 }

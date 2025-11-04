@@ -4,6 +4,8 @@ import com.example.EatMore.entity.User;
 import com.example.EatMore.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
@@ -36,5 +38,4 @@ public class UserController {
     public ResponseEntity<?> login(@RequestBody Map<String ,String> loginCredentials){
         return userService.loginUser(loginCredentials);
     }
-
 }
