@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+@RequestMapping("order")
 public class OrderController {
 
     @Autowired
@@ -22,7 +23,7 @@ public class OrderController {
         return orderService.getAllOrder();
     }
 
-    @GetMapping("/user/{userId}")
+    @GetMapping("/{userId}")
     public ResponseEntity<?> getOrdersByUser(@PathVariable String userId){
         return orderService.getOrdersByUser(userId);
     }

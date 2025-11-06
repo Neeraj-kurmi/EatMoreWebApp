@@ -4,6 +4,7 @@ package com.example.EatMore.services;
 import com.example.EatMore.entity.User;
 import com.example.EatMore.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -22,6 +23,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             return org.springframework.security.core.userdetails.User
                     .withUsername(user.getEmail())
                     .password(user.getPassword())
+                    .authorities("USER")
                     .build();
         }
         throw new  UsernameNotFoundException("user not found with email : "+ email);

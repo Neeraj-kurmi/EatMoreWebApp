@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RequestMapping("/admin")
 @RestController
+@RequestMapping("admin")
 public class AdminController {
 
     private final RestrauntService restrauntService;

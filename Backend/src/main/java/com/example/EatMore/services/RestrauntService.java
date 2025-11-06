@@ -51,9 +51,8 @@ public class RestrauntService {
             if (item.getImage() != null && item.getImage().startsWith("data:image")) {
                 String imageUrl = cloudinaryService.upload(item.getImage());
                 item.setImage(imageUrl);
-                menu.add(item);
             }
-
+            menu.add(item);
             restraunt.setMenu(menu);
             restrauntsRepository.save(restraunt);
             return ResponseEntity.ok(restraunt.getMenu());
