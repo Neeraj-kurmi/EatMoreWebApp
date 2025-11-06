@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import AddRestaurants from './AddRestaurants';
 import { toast } from 'sonner';
+import { logout } from '../../../redux/Slices/authSlice';
 
 const Restaurants = () => {
   const [isOpen ,setIsOpen]= useState(false);
@@ -67,6 +68,14 @@ const Restaurants = () => {
       onClick={()=>navigate("/admin/orders")}
       className="w-40 h-10 text-white bg-green-800 hover:bg-gray-600  rounded-lg">
                 View Orders
+      </button>
+      <button 
+              onClick={()=>{
+                dispatch(logout())
+                navigate("/")
+              }}
+              className="w-40 h-10 text-white bg-yellow-800 hover:bg-gray-600  rounded-lg">
+                Logout
       </button>
     </div>
       <h1 className="font-semibold text-2xl text-gray-500 mb-4">Restaurants List</h1>

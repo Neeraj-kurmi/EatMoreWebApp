@@ -1,10 +1,9 @@
 import React, { useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { toast } from 'sonner'
 import { setUser } from '../../../redux/Slices/authSlice';
 import { useNavigate } from 'react-router-dom';
 import { addCart } from '../../../redux/Slices/cartSlice';
-import {  addPastOrders } from '../../../redux/Slices/orderSlice';
 
 const SignIn = () => {
   const dispatch=useDispatch();
@@ -33,6 +32,9 @@ const SignIn = () => {
 
          dispatch(setUser({user,token}))
 
+         if(user.email=="neeraj@gmail.com"){
+          navigate("/admin/restaraunts")
+         }else{
           const response2=await fetch(`http://localhost:8080/cart/getCartItem/${user.id}`,{
             method:"GET",
             headers:{
@@ -49,6 +51,8 @@ const SignIn = () => {
           navigate("/user/profile")
 
           toast.success("Logged In Successfully");
+         }
+          
          }else{
           toast.error("Invalid Credentials")
          }
