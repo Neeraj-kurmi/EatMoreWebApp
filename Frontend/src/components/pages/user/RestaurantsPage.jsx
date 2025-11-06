@@ -14,6 +14,7 @@ export default function RestaurantPage() {
 
   const restaurants=useSelector((state)=>state.admin.restaurants);
   const restaurant = restaurants.find((r) =>r.id === restId);
+  
   const {addItem}=useAddItem();
 
   const cartHandler=async(item)=>{

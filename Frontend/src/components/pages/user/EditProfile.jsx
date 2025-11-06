@@ -4,7 +4,8 @@ import {setUser} from "/src/redux/Slices/authSlice.js"
 import { toast } from 'sonner';
 
 const EditProfile = ({modalHandler}) => {
-   
+  
+  const token=useSelector((state)=>state.auth.token);
   const user = useSelector((state) => state.auth.user);
   const dispatch=useDispatch();
 
@@ -32,10 +33,11 @@ const changeHandler=(e)=>{
 const formHandler=async(e)=>{
     e.preventDefault();
     const _id=user.id;
-    const response = await fetch(`http://localhost:8080/updateUser/${_id}`, {
+    const response = await fetch(`http://localhost:8080/user/updateUser/${_id}`, {
       method: "PUT",
       headers: {
-    "Content-Type": "application/json"
+    "Content-Type": "application/json",
+    Authorization: `Bearer ${token}`,
   },
       body: JSON.stringify(form)
 

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { toast } from "sonner";
 import { addRestaurant } from "../../../redux/Slices/adminSlice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 const AddRestaurants = ({modalHandler}) => {
   const dispatch=useDispatch();
   
@@ -25,12 +25,14 @@ const AddRestaurants = ({modalHandler}) => {
     };
   };
   
+  const token=useSelector((state)=>state.auth.token);
   const formHandler=async(e)=>{
      e.preventDefault();
-      const response = await fetch(`http://localhost:8080/addrestraunt`, {
+      const response = await fetch(`http://localhost:8080/admin/addrestraunt`, {
         method: "POST",
         headers: {
-      "Content-Type": "application/json"
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
     },
         body: JSON.stringify(form)
   
@@ -42,7 +44,7 @@ const AddRestaurants = ({modalHandler}) => {
         dispatch(addRestaurant(updatedForm))
         toast.success(" Restraunt added successfully ! 👍")
       } else {
-        console.error("❌ Error occur during the creation of restraunt ");
+        toast.error("❌ Error ! please Login");
       }
       
   }

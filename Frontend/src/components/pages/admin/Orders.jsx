@@ -7,13 +7,16 @@ const Orders = () => {
 
   const dispatch=useDispatch();
   const { updateStatus  } = useUpdateOrderStatus();
+  const token=useSelector((state)=>state.auth.token);
+
   useEffect(()=>{
           const orders=async()=>{
-          const response=await fetch(`http://localhost:8080/allOrders`,{
+          const response=await fetch(`http://localhost:8080/order/allOrders`,{
             method:"GET",
 
             headers:{
-              "Content-Type":"application/json"
+              "Content-Type":"application/json",
+              Authorization: `Bearer ${token}`,
             },
          })
          if(response.ok)dispatch(addOrderAdmin(await response.json())) ;

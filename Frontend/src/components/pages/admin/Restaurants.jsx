@@ -14,7 +14,7 @@ const Restaurants = () => {
     useEffect(() => {
       const fetchRestaurants = async () => {
         try {
-          const res = await fetch("http://localhost:8080/allrestraunt");
+          const res = await fetch("http://localhost:8080/admin/allrestraunt");
           
           if (res.ok) {
             const data = await res.json();
@@ -62,6 +62,11 @@ const Restaurants = () => {
       onClick={modalHandler}
       className="w-40 h-10 text-white bg-gray-800 hover:bg-gray-600  rounded-lg">
                 Add Restaurant
+      </button>
+      <button 
+      onClick={()=>navigate("/admin/orders")}
+      className="w-40 h-10 text-white bg-green-800 hover:bg-gray-600  rounded-lg">
+                View Orders
       </button>
     </div>
       <h1 className="font-semibold text-2xl text-gray-500 mb-4">Restaurants List</h1>

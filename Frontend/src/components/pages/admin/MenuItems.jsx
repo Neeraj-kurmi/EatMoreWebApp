@@ -19,11 +19,13 @@ const modalHandler=()=>{
   setIsOpen(!isOpen)
 }
 
+const token=useSelector((state)=>state.auth.token);
 const handleDeleteItem=async(iId)=>{
-    const response=await fetch(`http://localhost:8080/removeitem/${rId}/${iId}`,{
+    const response=await fetch(`http://localhost:8080/admin/removeitem/${rId}/${iId}`,{
       method:"DELETE",
       headers:{
-        "Constent-Type":"application/json"
+        "Constent-Type":"application/json",
+        Authorization: `Bearer ${token}`,
       }
       }
     )
@@ -35,17 +37,6 @@ const handleDeleteItem=async(iId)=>{
       toast.success("item not Found ❌")
     }
 }
-
-  const rest = [
-    {
-      id: 1,
-      name: "Pizza",
-      price: "299",
-      image:
-        "https://images.unsplash.com/photo-1482049016688-2d3e1b311543?q=80&w=710&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    },
-  ];
-
 
   return (
     <div className="h-full w-full p-4 md:p-10 inset-0">

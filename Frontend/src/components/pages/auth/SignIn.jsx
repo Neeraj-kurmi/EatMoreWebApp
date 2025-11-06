@@ -19,21 +19,25 @@ const SignIn = () => {
   }
   const submitHandler=async(e)=>{
          e.preventDefault();
-         const response1=await fetch(`http://localhost:8080/login`,{
+         const response1=await fetch(`http://localhost:8080/user/login`,{
             method:"POST",
             headers:{
               "Content-Type":"application/json"
             },
             body:JSON.stringify(form)
          })
-         const user = await response1.json();
+         const userData = await response1.json();
          if(response1.ok){
-          dispatch(setUser(user))
+         const user=userData.user;
+         const token=userData.token;
 
-          const response2=await fetch(`http://localhost:8080/getCartItem/${user.id}`,{
+         dispatch(setUser({user,token}))
+
+          const response2=await fetch(`http://localhost:8080/cart/getCartItem/${user.id}`,{
             method:"GET",
             headers:{
-              "Content-Type":"application/json"
+              "Content-Type":"application/json",
+               Authorization: `Bearer ${token}`,
             },
          })
           
@@ -41,23 +45,15 @@ const SignIn = () => {
             const cart=await response2.json();
             dispatch(addCart({items:cart.cartItems,total:cart.total}))
           }
+
+          navigate("/user/profile")
+
           toast.success("Logged In Successfully");
          }else{
           toast.error("Invalid Credentials")
          }
         
-        const previousOrders=await fetch(`http://localhost:8080/user/${user.id}`,{
-            method:"GET",
-            headers:{
-              "Content-Type":"application/json"
-            },
-         })
-          if(previousOrders.ok){
-            const orders=await previousOrders.json();
-            dispatch(addPastOrders(orders))
-          }
-
-          navigate("/user/profile")
+        
 
 
   }

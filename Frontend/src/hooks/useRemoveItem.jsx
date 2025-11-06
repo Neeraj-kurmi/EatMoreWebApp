@@ -2,19 +2,21 @@ import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { removeFromCart } from "/src/redux/Slices/cartSlice.js";
 
-export default function useRemoveCart() {
+export default function useRemoveItem() {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.auth.user);
+  const token=useSelector((state)=>state.auth.token);
   const [loading, setloading] = useState(false);
   const removeItems = async (item) => {
     try {
       setloading(true);
       const response = await fetch(
-        `http://localhost:8080/removeCartItem/${user.id}/${item.id}`,
+        `http://localhost:8080/cart/removeCartItem/${user.id}/${item.id}`,
         {
           method: "DELETE",
           headers: {
             "Content-Type": "application/json",
+             Authorization: `Bearer ${token}`,
           },
         }
       );

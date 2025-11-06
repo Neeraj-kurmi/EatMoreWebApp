@@ -1,21 +1,20 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import {
-  clearCart,
-  addToCart,
-  removeItemFromCart,
-} from "/src/redux/Slices/cartSlice.js";
+
 import Navbar from "../../shared/Navbar";
 import { MdDelete } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
-import useAddItem from "../../../hooks/useRemoveItem";
+import useAddItem from "../../../hooks/useAddItem";
 import useRemoveCart from "../../../hooks/useRemoveCart";
 import useRemoveWholeItem from "../../../hooks/useRemoveWholeItem";
+import useRemoveItem from "../../../hooks/useRemoveItem";
 
 const Cart = () => {
-  const { loading, removeItems } = useAddItem();
+    
+  const { loading, removeItems } = useRemoveItem();
   const {removeWholeItems}=useRemoveWholeItem();
   const {removeCart}=useRemoveCart();
+  const {addItem}=useAddItem();
 
   const user = useSelector((state) => state.auth.user);
   const cart = useSelector((state) => state.cart.carts);
@@ -36,32 +35,23 @@ const Cart = () => {
   
   if (!cart)
     return (
+      <><Navbar/>
       <div className="w-full bg-white rounded-lg shadow-md p-6">
         <h1 className="text-2xl font-bold mb-6 text-gray-600">Your Cart</h1>
         <p className="text-gray-400 text-center">Your cart is empty.</p>
       </div>
+      </>
     );
 
   const { items, total } = cart;
 
-  const dispatch = useDispatch();
 
   const handleRemoveItem = async (item) => {
     removeItems(item);
   };
 
   const handleAddItem = async (item) => {
-    const response = await fetch(
-      `http://localhost:8080/addCartItem/${user.id}`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(item),
-      }
-    );
-    dispatch(addToCart({item}));
+    addItem(item)
   };
 
   const handleRemoveWholeItem = async (item) => {

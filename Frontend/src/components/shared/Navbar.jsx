@@ -8,7 +8,6 @@ import { logout } from "../../redux/Slices/authSlice";
 
 const Navbar = () => {
   const [query, setQuery] = useState("");
-  const [isOpen, setOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
   const dropdownRef = useRef(null);
@@ -47,7 +46,7 @@ const Navbar = () => {
         <div className="lg:mr-10 cursor-pointer flex items-center space-x-4">
           <img
             onClick={() => navigate("/")}
-            src="https://i.pinimg.com/736x/2b/4a/9c/2b4a9c4f84a98e786bb9aa53870f3ffd.jpg"
+            src="src\assets\logo.jpg"
             className="h-15 w-15 rounded-full cursor-pointer"
             alt="Logo"
           />

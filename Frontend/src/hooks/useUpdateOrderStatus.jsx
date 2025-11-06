@@ -1,20 +1,22 @@
 import React from "react";
 import { updateOrderStatus } from "../redux/Slices/adminSlice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { toast } from "sonner";
 
 const useUpdateOrderStatus = () => {
 
   const dispatch=useDispatch();
+  const token=useSelector((state)=>state.auth.token);
 
   const updateStatus = async (orderId, ordersStatus) => {
     try {
       const response = await fetch(
-        `http://localhost:8080/updateStatus/${orderId}?status=${ordersStatus}`,
+        `http://localhost:8080/order/updateStatus/${orderId}?status=${ordersStatus}`,
         {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
+             Authorization: `Bearer ${token}`,
           },
         }
       );

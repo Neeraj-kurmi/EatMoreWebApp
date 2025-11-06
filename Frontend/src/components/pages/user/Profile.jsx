@@ -1,21 +1,46 @@
 import { useSelector, useDispatch } from "react-redux";
 import { logout } from "../../../redux/Slices/authSlice";
 import OrderHistory from "./OrderHistory";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import EditProfile from "./EditProfile";
 import Navbar from "../../shared/Navbar";
 import { useNavigate } from "react-router-dom";
+import { toast } from "sonner";
+import { addPastOrders } from "../../../redux/Slices/orderSlice";
 
 export default function Profile() {
   const dispatch = useDispatch();
   const navigate=useNavigate();
   const user = useSelector((state) => state.auth.user);
+  const token=useSelector((state) => state.auth.token);
 
   const [isOpen,setIsOpen]=useState();
 
   const modalHandler =()=>{
       setIsOpen(!isOpen)
   }
+
+  useEffect(() => {
+    
+    const fetchpreviousOrders =async() => {
+       try {
+             const previousOrders=await fetch(`http://localhost:8080/order/${user.id}`,{
+            method:"GET",
+            headers:{
+              "Content-Type":"application/json",
+              Authorization: `Bearer ${token}`,
+            },
+         })
+          if(previousOrders.ok){
+            const orders=await previousOrders.json();
+            dispatch(addPastOrders(orders))
+          }
+       } catch (error) {
+          console.error(error);
+       }
+    };
+    fetchpreviousOrders()
+  }, []);
 
   if (!user) {
     return (

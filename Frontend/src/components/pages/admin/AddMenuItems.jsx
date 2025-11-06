@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'sonner';
 import { addMenuItem } from '../../../redux/Slices/adminSlice';
 
@@ -23,13 +23,15 @@ const AddMenuItems = ({modalHandler,restId}) => {
   const changeHandler = (e) => {
     setFormData({ ...form, [e.target.name]: e.target.value });
   };
-
+ 
+  const token=useSelector((state)=>state.auth.token);
   const formHandler=async(e)=>{
        e.preventDefault();
-        const response = await fetch(`http://localhost:8080/addItem/${restId}`, {
+        const response = await fetch(`http://localhost:8080/admin/addItem/${restId}`, {
           method: "POST",
           headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
       },
           body: JSON.stringify(form)
     
@@ -41,7 +43,7 @@ const AddMenuItems = ({modalHandler,restId}) => {
           dispatch(addMenuItem({ restId, item: newItem }));
           toast.success(" Item added successfully ! 👍")
         } else {
-          console.error("❌ Error occur during the creation of item ");
+          toast.error("❌ Error ! Please Login");
         }
         
     }

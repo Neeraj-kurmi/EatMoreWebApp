@@ -5,15 +5,17 @@ import { toast } from 'sonner';
 
 const useRemoveWholeItem = () => {
     const user = useSelector((state) => state.auth.user);
+    const token=useSelector((state)=>state.auth.token);
     const dispatch =useDispatch();
     const removeWholeItems = async (item) => {
         try {
           const response = await fetch(
-            `http://localhost:8080/removeWholeCartItem/${user.id}/${item.id}`,
+            `http://localhost:8080/cart/removeWholeCartItem/${user.id}/${item.id}`,
             {
               method: "DELETE",
               headers: {
                 "Content-Type": "application/json",
+                 Authorization: `Bearer ${token}`,
               },
             }
           );

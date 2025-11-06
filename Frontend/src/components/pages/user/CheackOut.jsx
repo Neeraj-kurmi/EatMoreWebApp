@@ -9,6 +9,7 @@ const CheackOut = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  const token=useSelector((state)=>state.auth.token);
   const { removeCart } = useRemoveCart();
   const user = useSelector((state) => state.auth.user);
   const cart = useSelector((state) => state.cart.carts);
@@ -37,10 +38,11 @@ const CheackOut = () => {
       houseNumber: form.houseNumber,
       placedAt: new Date().toISOString().split("T")[0],
     };
-    const response = await fetch(`http://localhost:8080/addOrder`, {
+    const response = await fetch(`http://localhost:8080/order/addOrder`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify(order),
     });

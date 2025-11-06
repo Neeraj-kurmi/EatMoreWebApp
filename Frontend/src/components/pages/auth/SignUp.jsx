@@ -19,7 +19,7 @@ const changeHandler=(e)=>{
 
 const formHandler=async(e)=>{
     e.preventDefault();
-         const response=await fetch(`http://localhost:8080/addUser`,{
+         const response=await fetch(`http://localhost:8080/user/addUser`,{
             method:"POST",
             headers:{
               "Content-Type":"application/json"

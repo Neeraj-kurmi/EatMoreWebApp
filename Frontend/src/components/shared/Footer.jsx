@@ -2,7 +2,7 @@ import React from 'react'
 
 function Footer() {
       return (
-        <footer className=" w-full py-1 bg-linear-to-l from-orange-500 to-red-500 text-gray-300 bottom-0 ">
+        <footer className=" w-full py-1 bg-linear-to-l from-orange-500 to-red-500 text-gray-300 mt-[108px]">
           <div className=''>
             <div className="flex items-center justify-between px-10 ">
             <div className="mb-4 md:mb-0">
@@ -25,7 +25,7 @@ function Footer() {
             </div>
           </div>
           <div className="text-center mt-4 border-t border-gray-700 pt-1">
-            <p>&copy; {new Date().getFullYear()} myFood. All rights reserved.</p>
+            <p>&copy; {new Date().getFullYear()} EatMore. All rights reserved.</p>
           </div>
           </div>
         </footer>
