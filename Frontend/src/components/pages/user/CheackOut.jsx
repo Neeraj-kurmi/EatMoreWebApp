@@ -5,6 +5,7 @@ import { addOrder } from "../../../redux/Slices/orderSlice";
 import { useNavigate } from "react-router-dom";
 import { clearCart } from "../../../redux/Slices/cartSlice";
 import useRemoveCart from "../../../hooks/useRemoveCart";
+import Navbar from "../../shared/Navbar";
 const CheackOut = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -59,6 +60,8 @@ const CheackOut = () => {
     }
   };
   return (
+    <>
+    <Navbar/>
     <div className="flex justify-center items-center h-screen p-4">
       <div className="h-150 w-150 bg-gray-200 shadow-2xl rounded-xl p-4 mx-auto">
         <h1 className=" font-medium text-2xl text-gray-700 mb-4">
@@ -117,9 +120,16 @@ const CheackOut = () => {
           >
             Place Order
           </button>
+          <button
+            onClick={()=>navigate("/user/cart")}
+            className="w-full p-2 mt-2 text-white bg-red-600 hover:bg-gray-500 border rounded-2xl border-gray-600"
+          >
+            Cancel
+          </button>
         </form>
       </div>
     </div>
+    </>
   );
 };
 
