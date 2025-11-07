@@ -41,7 +41,7 @@ export default function RestaurantPage() {
         restaurant.menu.length<=0 && <h1 className=" text-gray-500 ml-6">currently this service unavailable...</h1>
       }
       <div className=" ">
-        <div className="sm:grid grid-cols-2 col-span-2 w-full gap-4">
+        <div className="grid sm:grid-cols-2 md:grid-cols-3 w-full gap-4 p-3">
           {restaurant.menu?.map((item) => {
             const alreadyInCart = cartItems?.some(
               (cartItem) => cartItem.id === item.id
@@ -52,22 +52,26 @@ export default function RestaurantPage() {
                 className="flex flex-col sm:flex-row gap-4 items-center md:justify-between p-4 bg-white shadow rounded-lg "
               >
                 <div>
-                  <img src={item.image} className="h-40 w-80 rounded-2xl" />
-                  <h3 className="font-semibold text-lg">{item.name}</h3>
-                  <p className="text-gray-600">₹{item.price}</p>
-                </div>
-                <button
+                  <img src={item.image} className="h-40 w-80 rounded-2xl mb-2" />
+                  <div className="flex justify-between ">
+                    <div><h3 className="font-semibold text-lg">{item.name}</h3>
+                  <p className="text-gray-600">₹{item.price}</p></div>
+                    <div><button
                   onClick={() => {
                     cartHandler(item)
                   }} 
                   className={`px-4 py-2 rounded ${
                     alreadyInCart
-                      ? "bg-gray-400 cursor-not-allowed"
-                      : "bg-gray-800 hover:bg-gray-600 text-white"
+                      ? "bg-orange-300 cursor-not-allowed text-white"
+                      : "bg-orange-600 hover:bg-orange-500 text-white"
                   }`}
                 >
                   {alreadyInCart ? "Added to Cart" : "Add to Cart"}
-                </button>
+                </button></div>
+                  </div>
+                  
+                </div>
+                
               </div>
             );
           })}

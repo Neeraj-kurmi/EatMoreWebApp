@@ -116,13 +116,13 @@ const CheackOut = () => {
           />
           <button
             onClick={handleSubmit}
-            className="w-full p-2 mt-14 text-white bg-gray-600 hover:bg-gray-500 border rounded-2xl border-gray-600"
+            className="w-full p-2 mt-14 text-white bg-green-600 hover:bg-green-500 border rounded-2xl border-gray-600"
           >
             Place Order
           </button>
           <button
             onClick={()=>navigate("/user/cart")}
-            className="w-full p-2 mt-2 text-white bg-red-600 hover:bg-gray-500 border rounded-2xl border-gray-600"
+            className="w-full p-2 mt-2 text-white bg-red-600 hover:bg-red-500 border rounded-2xl border-gray-600"
           >
             Cancel
           </button>

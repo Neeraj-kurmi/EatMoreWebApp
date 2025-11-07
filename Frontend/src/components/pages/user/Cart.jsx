@@ -110,10 +110,10 @@ const Cart = () => {
 
               <div className="mt-6 flex justify-between items-center">
                 <h2 className="text-xl font-bold">Total: ₹{cart.total}</h2>
-                <div className="space-x-4">
+                <div className="flex gap-1 md:space-x-4">
                   <button
                     onClick={handleRemoveCart}
-                    className="bg-gray-500 text-white px-4 py-2 rounded-lg hover:bg-gray-600"
+                    className="bg-orange-600 text-white px-4 py-2 rounded-lg hover:bg-orange-500 "
                   >
                     Clear Cart
                   </button>
