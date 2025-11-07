@@ -2,12 +2,14 @@ package com.example.EatMore.services;
 
 import com.example.EatMore.entity.Order;
 import com.example.EatMore.repositories.OrderRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Slf4j
 @Service
 public class OrderService {
     @Autowired
@@ -19,6 +21,7 @@ public class OrderService {
            return ResponseEntity.ok(savedOrder);
 
        } catch (Exception e) {
+           log.error("Error while adding order  : " + order);
            return ResponseEntity.internalServerError().body("Error placing order: " + e.getMessage());
        }
    }
@@ -28,6 +31,7 @@ public class OrderService {
            List<Order> orders = orderRepository.findAll();
            return ResponseEntity.ok(orders);
        } catch (Exception e) {
+           log.error("Error while getting allOrder : " );
            return ResponseEntity.internalServerError().body("Error fetching user orders");
        }
    }
@@ -38,6 +42,7 @@ public class OrderService {
 
             return ResponseEntity.ok(orders);
         } catch (Exception e) {
+            log.error("Error while getting user order : " );
             return ResponseEntity.internalServerError().body("Error fetching user orders");
         }
     }
@@ -52,6 +57,7 @@ public class OrderService {
 
             return ResponseEntity.ok("Order status updated to: " + status);
         } catch (Exception e) {
+            log.error("Error while updating order status : " );
             return ResponseEntity.internalServerError().body("Error updating order");
         }
     }
@@ -61,6 +67,7 @@ public class OrderService {
             orderRepository.deleteById(orderId);
             return ResponseEntity.ok("Order deleted successfully");
         } catch (Exception e) {
+            log.error("Error while deleting user order : " );
             return ResponseEntity.internalServerError().body("Error deleting order");
         }
     }

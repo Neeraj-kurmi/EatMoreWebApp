@@ -4,6 +4,7 @@ import com.example.EatMore.dto.AuthResponse;
 import com.example.EatMore.entity.User;
 import com.example.EatMore.repositories.UserRepository;
 import com.example.EatMore.utility.JWTutils;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.Map;
 
+@Slf4j
 @Service
 public class UserService {
     @Autowired
@@ -47,6 +49,7 @@ public class UserService {
             userRepository.save(user);
             return ResponseEntity.ok(user);
         } catch (Exception e) {
+            log.error("Error while register a new user : " );
             return ResponseEntity.internalServerError().body("Error: " + e.getMessage());
         }
     }
@@ -74,6 +77,7 @@ public class UserService {
 
             return ResponseEntity.ok(savedUser);
         } catch (Exception e) {
+            log.error("Error while updating user  profile: " );
             return ResponseEntity.internalServerError().body("Error: " + e.getMessage());
         }
     }
@@ -96,6 +100,7 @@ public class UserService {
             }
 
         } catch (Exception e) {
+            log.error("Error while login  user : " );
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }

@@ -3,6 +3,7 @@ package com.example.EatMore.services;
 import com.example.EatMore.entity.Cart;
 import com.example.EatMore.entity.Item;
 import com.example.EatMore.repositories.CartRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,6 +13,7 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
+@Slf4j
 @Service
 public class CartService {
     @Autowired
@@ -54,9 +56,9 @@ public class CartService {
            return ResponseEntity.status(HttpStatus.CREATED).body(cart);
 
        } catch (Exception e) {
-           e.printStackTrace();
+           log.error("Error while adding item to cart: " + e.getMessage());
            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                   .body("Error adding item to cart: " + e.getMessage());
+                   .body("Error while adding item to cart: " + e.getMessage());
        }
     }
 
@@ -97,6 +99,7 @@ public class CartService {
             return ResponseEntity.ok("Item quantity updated or removed successfully ✅");
 
         } catch (Exception e) {
+            log.error("Error while updating item quantity: " + e.getMessage());
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body("Error while updating item quantity: " + e.getMessage());
         }
@@ -128,6 +131,7 @@ public class CartService {
             return ResponseEntity.ok("Item quantity updated or removed successfully ✅");
 
         } catch (Exception e) {
+            log.error("Error while updating item quantity: " + e.getMessage());
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body("Error while updating item quantity: " + e.getMessage());
         }
@@ -142,6 +146,7 @@ public class CartService {
            cartRepository.delete(cart);
            return ResponseEntity.status(HttpStatus.OK).body("Cart deleted");
        } catch (Exception e) {
+           log.error("Error while clear cart : " + uId);
            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Cart not found for user ID: " + uId);
        }
     }
@@ -154,6 +159,7 @@ public class CartService {
                }
                return ResponseEntity.ok(cart);
            } catch (Exception e) {
+               log.error("Error while getting cart : " + uId);
                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
            }
     }

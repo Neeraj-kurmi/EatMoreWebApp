@@ -3,6 +3,7 @@ package com.example.EatMore.services;
 import com.example.EatMore.entity.Item;
 import com.example.EatMore.entity.Restraunt;
 import com.example.EatMore.repositories.RestrauntsRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.LinkedList;
 import java.util.List;
 
+@Slf4j
 @Service
 public class RestrauntService {
 
@@ -34,6 +36,7 @@ public class RestrauntService {
             restrauntsRepository.save(restraunts);
             return ResponseEntity.ok(restraunts);
         } catch (Exception e) {
+            log.error("Error while adding restaurent : " );
             return ResponseEntity.internalServerError().body("Error: " + e.getMessage());
         }
 
@@ -57,6 +60,7 @@ public class RestrauntService {
             restrauntsRepository.save(restraunt);
             return ResponseEntity.ok(restraunt.getMenu());
         } catch (Exception e) {
+            log.error("Error while adding item into restaurent : " );
             return ResponseEntity.internalServerError().body("Error: " + e.getMessage());
         }
 
@@ -67,7 +71,9 @@ public class RestrauntService {
              restrauntsRepository.deleteById(id);
              return ResponseEntity.ok("Removed");
         } catch (Exception e) {
-            throw new RuntimeException("Restraunt Not found");
+
+            log.error("Error while removing restaurent : " );
+            return ResponseEntity.internalServerError().body("Error: " + e.getMessage());
         }
     }
 
@@ -82,7 +88,8 @@ public class RestrauntService {
             restrauntsRepository.save(restraunt);
             return ResponseEntity.ok("deleted");
         } catch (Exception e) {
-            throw new RuntimeException( e.getMessage());
+            log.error("Error while removing item from restaurent : " );
+            return ResponseEntity.internalServerError().body("Error: " + e.getMessage());
         }
     }
 
@@ -95,6 +102,7 @@ public class RestrauntService {
             Restraunt restraunt=restrauntsRepository.findById(rId).orElse(null);
             return restraunt.getMenu();
         } catch (Exception e) {
+            log.error("Error while getting all items of  restaurent : " );
             throw new RuntimeException(e);
         }
     }

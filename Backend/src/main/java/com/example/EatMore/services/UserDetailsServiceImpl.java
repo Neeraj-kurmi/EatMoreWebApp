@@ -3,6 +3,7 @@ package com.example.EatMore.services;
 
 import com.example.EatMore.entity.User;
 import com.example.EatMore.repositories.UserRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -10,6 +11,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+@Slf4j
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
 
@@ -26,6 +28,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
                     .authorities("USER")
                     .build();
         }
+        log.error("Error while loadUserByUsername user : " );
         throw new  UsernameNotFoundException("user not found with email : "+ email);
     }
 }
