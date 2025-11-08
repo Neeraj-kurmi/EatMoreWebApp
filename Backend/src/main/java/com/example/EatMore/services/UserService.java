@@ -26,6 +26,9 @@ public class UserService {
     UserRepository userRepository;
 
     @Autowired
+    JWTutils jwTutils;
+
+    @Autowired
     UserDetailsServiceImpl userDetailsService;
 
     @Autowired
@@ -90,7 +93,7 @@ public class UserService {
             Authentication authentication=authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(email,password));
             if (authentication.isAuthenticated()) {
                 UserDetails userDetails=userDetailsService.loadUserByUsername(email);
-                String token=JWTutils.generateToken(userDetails.getUsername());
+                String token=jwTutils.generateToken(userDetails.getUsername());
                 User user=userRepository.findByEmail(email);
                 user.setPassword(null);
                 AuthResponse authRespons=new AuthResponse(token,user);
