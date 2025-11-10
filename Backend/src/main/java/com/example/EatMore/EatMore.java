@@ -12,7 +12,7 @@ public class EatMore {
 
 	public static void main(String[] args) {
          System.out.println("Starting EatMore application...");
-      System.out.println("CLOUDINARY_CLOUD_NAME: " + System.getenv("CLOUDINARY_CLOUD_NAME"));
+      System.out.println("CLOUDINARY_CLOUD_NAME: " + System.getenv("CLOUDINARY_NAME"));
 		SpringApplication.run(EatMore.class, args);
 		log.info("Application Running....");
 	}
