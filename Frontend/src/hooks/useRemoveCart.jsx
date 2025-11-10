@@ -10,7 +10,7 @@ const useRemoveCart = () => {
   const removeCart = async () => {
     try {
       const response = await fetch(
-        `http://localhost:8080/cart/removeCart/${user.id}`,
+        `${import.meta.env.VITE_API_BASE_URL}/cart/removeCart/${user.id}`,
         {
           method: "DELETE",
           headers: {

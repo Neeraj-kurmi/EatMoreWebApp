@@ -33,7 +33,7 @@ const changeHandler=(e)=>{
 const formHandler=async(e)=>{
     e.preventDefault();
     const _id=user.id;
-    const response = await fetch(`http://localhost:8080/user/updateUser/${_id}`, {
+    const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/user/updateUser/${_id}`, {
       method: "PUT",
       headers: {
     "Content-Type": "application/json",

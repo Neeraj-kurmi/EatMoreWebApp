@@ -22,15 +22,20 @@ const Cart = () => {
 
   if (user == null)
     return (
-      <div className="h-screen flex items-center justify-center flex-col">
+  <>
+
+  <Navbar/>
+    <div className="h-screen flex items-center justify-center flex-col">
         <div className="">Please Login first</div>
         <button
           onClick={() => navigate("/user/login")}
           className=" text-blue-800"
         >
-          Login
+          click for Login
         </button>
       </div>
+  </>
+      
     );
   
   if (!cart)

@@ -10,7 +10,7 @@ const useRemoveWholeItem = () => {
     const removeWholeItems = async (item) => {
         try {
           const response = await fetch(
-            `http://localhost:8080/cart/removeWholeCartItem/${user.id}/${item.id}`,
+            `${import.meta.env.VITE_API_BASE_URL}/cart/removeWholeCartItem/${user.id}/${item.id}`,
             {
               method: "DELETE",
               headers: {

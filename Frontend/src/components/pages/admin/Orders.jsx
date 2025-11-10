@@ -11,7 +11,7 @@ const Orders = () => {
 
   useEffect(()=>{
           const orders=async()=>{
-          const response=await fetch(`http://localhost:8080/order/allOrders`,{
+          const response=await fetch(`${import.meta.env.VITE_API_BASE_URL}/order/allOrders`,{
             method:"GET",
 
             headers:{
@@ -22,7 +22,7 @@ const Orders = () => {
          if(response.ok)dispatch(addOrderAdmin(await response.json())) ;
         }
     orders();
-  },[dispatch])
+  },[])
    
   const allOrders=useSelector((state)=>state.admin.orders);
   return (

@@ -11,7 +11,7 @@ const useUpdateOrderStatus = () => {
   const updateStatus = async (orderId, ordersStatus) => {
     try {
       const response = await fetch(
-        `http://localhost:8080/order/updateStatus/${orderId}?status=${ordersStatus}`,
+        `${import.meta.env.VITE_API_BASE_URL}/order/updateStatus/${orderId}?status=${ordersStatus}`,
         {
           method: "PUT",
           headers: {

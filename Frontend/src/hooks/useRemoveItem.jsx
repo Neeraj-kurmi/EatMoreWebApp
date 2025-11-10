@@ -11,7 +11,7 @@ export default function useRemoveItem() {
     try {
       setloading(true);
       const response = await fetch(
-        `http://localhost:8080/cart/removeCartItem/${user.id}/${item.id}`,
+        `${import.meta.env.VITE_API_BASE_URL}/cart/removeCartItem/${user.id}/${item.id}`,
         {
           method: "DELETE",
           headers: {

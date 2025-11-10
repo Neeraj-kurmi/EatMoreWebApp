@@ -15,7 +15,7 @@ const Home = () => {
   useEffect(() => {
     const fetchRestaurants = async () => {
       try {
-        const res = await fetch("http://localhost:8080/admin/allrestraunt",);
+        const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/admin/allrestraunt`);
         if (res.ok) {
           const data = await res.json();
           dispatch(addRestaurant(data));
@@ -65,12 +65,12 @@ const Home = () => {
         </div>
       </section>
 
-      <section className="bg-gray-100 text-center py-12">
+      <section className="bg-gray-100 text-center px-7">
         <h2 className="text-2xl font-bold mb-4">Hungry? Let’s Order Now!</h2>
-        <button className="px-6 py-3 bg-gradient-to-l from-orange-500 to-red-500 text-black font-bold rounded-lg text-lg hover:bg-red-600">
+        <p className="px-6 py-3 bg-gradient-to-l from-orange-500 to-red-500 text-black font-bold rounded-lg text-lg hover:bg-red-600">
         <h2 className="text-2xl font-bold mb-4 text-cyan-200">Get your order in just 30 minutes 🎉</h2>
           Start Ordering . . .
-        </button>
+        </p>
       </section>
      <Footer/>
     </div>

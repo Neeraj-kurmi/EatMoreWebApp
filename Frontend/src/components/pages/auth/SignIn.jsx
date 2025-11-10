@@ -18,7 +18,7 @@ const SignIn = () => {
   }
   const submitHandler=async(e)=>{
          e.preventDefault();
-         const response1=await fetch(`http://localhost:8080/user/login`,{
+         const response1=await fetch(`${import.meta.env.VITE_API_BASE_URL}/user/login`,{
             method:"POST",
             headers:{
               "Content-Type":"application/json"
@@ -35,7 +35,7 @@ const SignIn = () => {
          if(user.email=="neeraj@gmail.com"){
           navigate("/admin/restaraunts")
          }else{
-          const response2=await fetch(`http://localhost:8080/cart/getCartItem/${user.id}`,{
+          const response2=await fetch(`${import.meta.env.VITE_API_BASE_URL}/cart/getCartItem/${user.id}`,{
             method:"GET",
             headers:{
               "Content-Type":"application/json",

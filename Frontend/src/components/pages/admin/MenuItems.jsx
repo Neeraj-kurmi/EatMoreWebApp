@@ -21,7 +21,7 @@ const modalHandler=()=>{
 
 const token=useSelector((state)=>state.auth.token);
 const handleDeleteItem=async(iId)=>{
-    const response=await fetch(`http://localhost:8080/admin/removeitem/${rId}/${iId}`,{
+    const response=await fetch(`${import.meta.env.VITE_API_BASE_URL}/admin/removeitem/${rId}/${iId}`,{
       method:"DELETE",
       headers:{
         "Constent-Type":"application/json",

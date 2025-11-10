@@ -5,7 +5,6 @@ import { useEffect, useState } from "react";
 import EditProfile from "./EditProfile";
 import Navbar from "../../shared/Navbar";
 import { useNavigate } from "react-router-dom";
-import { toast } from "sonner";
 import { addPastOrders } from "../../../redux/Slices/orderSlice";
 
 export default function Profile() {
@@ -24,7 +23,7 @@ export default function Profile() {
     
     const fetchpreviousOrders =async() => {
        try {
-             const previousOrders=await fetch(`http://localhost:8080/order/${user.id}`,{
+             const previousOrders=await fetch(`${import.meta.env.VITE_API_BASE_URL}/order/${user.id}`,{
             method:"GET",
             headers:{
               "Content-Type":"application/json",

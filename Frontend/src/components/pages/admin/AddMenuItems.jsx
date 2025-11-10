@@ -27,7 +27,7 @@ const AddMenuItems = ({modalHandler,restId}) => {
   const token=useSelector((state)=>state.auth.token);
   const formHandler=async(e)=>{
        e.preventDefault();
-        const response = await fetch(`http://localhost:8080/admin/addItem/${restId}`, {
+        const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/admin/addItem/${restId}`, {
           method: "POST",
           headers: {
         "Content-Type": "application/json",

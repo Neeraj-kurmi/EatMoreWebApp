@@ -15,7 +15,7 @@ const Restaurants = () => {
     useEffect(() => {
       const fetchRestaurants = async () => {
         try {
-          const res = await fetch("http://localhost:8080/admin/allrestraunt");
+          const res = await fetch("${import.meta.env.VITE_API_BASE_URL}/admin/allrestraunt");
           
           if (res.ok) {
             const data = await res.json();
@@ -35,7 +35,7 @@ const Restaurants = () => {
     const handleRemoveRestaurent=async(id)=>{
        const rId=id;
  
-       const response=await fetch(`http://localhost:8080/removeRest/${rId}`,{
+       const response=await fetch(`${import.meta.env.VITE_API_BASE_URL}/removeRest/${rId}`,{
         method:"DELETE",
         headers:{
           "Content-Type":"application/json"
