@@ -1,19 +1,22 @@
-# Use Maven image for building
+# ---- Build stage ----
 FROM maven:3.9.9-eclipse-temurin-17 AS build
 WORKDIR /app
 
-# Copy everything
-COPY . .
+# Copy only backend folder (where pom.xml is)
+COPY backend ./backend
 
-# Build using system Maven (not wrapper)
+# Set working directory to backend
+WORKDIR /app/backend
+
+# Build the Spring Boot app
 RUN mvn clean package -DskipTests
 
-# Use JRE for running
+# ---- Run stage ----
 FROM eclipse-temurin:17-jre-alpine
 WORKDIR /app
 
-# Copy built JAR
-COPY --from=build /app/target/*.jar app.jar
+# Copy JAR from builder stage
+COPY --from=build /app/backend/target/*.jar app.jar
 
 EXPOSE 8080
 CMD ["java", "-jar", "app.jar"]
