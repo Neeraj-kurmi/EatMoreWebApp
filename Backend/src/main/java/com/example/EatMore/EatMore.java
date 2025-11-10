@@ -11,7 +11,8 @@ import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfi
 public class EatMore {
 
 	public static void main(String[] args) {
-
+         System.out.println("Starting EatMore application...");
+    System.out.println("JWT_SECRET: " + System.getenv("JWT_SECRET"));
 		SpringApplication.run(EatMore.class, args);
 		log.info("Application Running....");
 	}
