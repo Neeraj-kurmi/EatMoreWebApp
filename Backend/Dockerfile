@@ -3,7 +3,7 @@ FROM maven:3.9.9-eclipse-temurin-17 AS build
 WORKDIR /app
 
 # Copy only backend folder (where pom.xml is)
-COPY backend ./backend
+COPY backend ./Backend
 
 # Set working directory to backend
 WORKDIR /app/backend
