@@ -46,7 +46,7 @@ const Navbar = () => {
         <div className="lg:mr-10 cursor-pointer flex items-center space-x-4">
           <img
             onClick={() => navigate("/")}
-            src="/src/assets/logo.jpg"
+            src="/src/public/logo.jpg"
             className="h-15 w-15 rounded-full cursor-pointer"
             alt="Logo"
           />
