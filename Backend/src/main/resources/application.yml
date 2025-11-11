@@ -1,0 +1,18 @@
+spring:
+  config:
+    import: optional:file:../.env
+  thymeleaf:
+    cache: false
+  data:
+    mongodb:
+      uri: ${DB_URL}
+      database: FoodStore
+      auto-index-creation: true
+
+cloudinary:
+        cloud_name: ${CLOUDINARY_NAME}
+        api_key: ${CLOUDINARY_API_KEY}
+        api_secret: ${CLOUDINARY_API_SECRET}
+
+jwt:
+  secret: ${JWT_SECRET}
