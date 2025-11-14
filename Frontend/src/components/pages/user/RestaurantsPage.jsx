@@ -56,7 +56,7 @@ export default function RestaurantPage() {
                   <div className="flex justify-between ">
                     <div><h3 className="font-semibold text-lg">{item.name}</h3>
                   <p className="text-gray-600">₹{item.price}</p></div>
-                    <div><button
+                    <div><button  {alreadyInCart ? disable}
                   onClick={() => {
                     cartHandler(item)
                   }} 
