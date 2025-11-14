@@ -50,7 +50,7 @@ const Navbar = () => {
             className="h-15 w-15 rounded-full cursor-pointer"
             alt="Logo"
           />
-          <li className="logo list-none italic font-semibold text-gray-300 text-2xl">
+          <li onClick={() => navigate("/")} className="logo list-none italic font-semibold text-gray-300 text-2xl">
             Eat<span className="text-orange-400">More</span>
           </li>
         </div>
