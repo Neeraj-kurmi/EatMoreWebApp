@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import Navbar from "../../shared/Navbar";
@@ -8,13 +8,14 @@ import useAddItem from "../../../hooks/useAddItem";
 import useRemoveCart from "../../../hooks/useRemoveCart";
 import useRemoveWholeItem from "../../../hooks/useRemoveWholeItem";
 import useRemoveItem from "../../../hooks/useRemoveItem";
+import Loader from "../../shared/Loader";
 
 const Cart = () => {
     
   const { loading, removeItems } = useRemoveItem();
   const {removeWholeItems}=useRemoveWholeItem();
   const {removeCart}=useRemoveCart();
-  const {addItem}=useAddItem();
+  const {load,addItem}=useAddItem();
 
   const user = useSelector((state) => state.auth.user);
   const cart = useSelector((state) => state.cart.carts);
@@ -94,13 +95,13 @@ const Cart = () => {
                         onClick={() => handleAddItem(item)}
                         className="bg-green-500 font-bold text-white px-3 py-1 rounded-lg hover:bg-green-600"
                       >
-                        +
+                        {load ? <Loader/> : "+"}
                       </button>
                       <button
                         onClick={() => handleRemoveItem(item)}
                         className="bg-green-500 font-bold text-white px-3 py-1 rounded-lg hover:bg-green-600"
                       >
-                        {loading ? <div className="animate-spin">C</div> : "-"}
+                        {loading ? <Loader/> : "-"}
                       </button>
                       <button
                         onClick={() => handleRemoveWholeItem(item)}

@@ -4,10 +4,13 @@ import { toast } from 'sonner'
 import { setUser } from '../../../redux/Slices/authSlice';
 import { useNavigate } from 'react-router-dom';
 import { addCart } from '../../../redux/Slices/cartSlice';
+import Loader from '../../shared/Loader';
 
 const SignIn = () => {
   const dispatch=useDispatch();
   const navigate=useNavigate();
+
+  const [loading ,setLoading]=useState(false);  
 
   const [form ,setFormData]=useState({
      email:"",
@@ -17,6 +20,7 @@ const SignIn = () => {
          setFormData({...form,[e.target.name]:e.target.value})
   }
   const submitHandler=async(e)=>{
+          setLoading(true);
          e.preventDefault();
          const response1=await fetch(`${import.meta.env.VITE_API_BASE_URL}/user/login`,{
             method:"POST",
@@ -57,7 +61,7 @@ const SignIn = () => {
           toast.error("Invalid Credentials")
          }
         
-        
+        setLoading(false);
 
 
   }
@@ -97,9 +101,9 @@ const SignIn = () => {
       />
     </div>
 
-    <button className="w-full bg-gray-800 text-white py-2 rounded-lg hover:bg-gray-600 transition"
+    <button className="w-full bg-gray-800 text-white py-2 rounded-lg hover:bg-gray-600 flex items-center justify-center"
      onSubmit={submitHandler}>
-      Login
+      {loading?<Loader/>:"Login"}
     </button>
 
     <div className="mt-4 text-sm text-center text-gray-600">

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { toast } from 'sonner';
 import { addToCart } from '../redux/Slices/cartSlice';
 import { useDispatch, useSelector } from 'react-redux';
@@ -6,9 +6,11 @@ import { useDispatch, useSelector } from 'react-redux';
 const useAddItem = () => {
   const user=useSelector((state)=>state.auth.user);
   const token=useSelector((state)=>state.auth.token);
+  const [load, setload] = useState(false);
   const dispatch =useDispatch();
      const addItem=async(item)=>{
     try {
+      setload(true);
        if(user==null){
          toast.error("please login first")
          return
@@ -21,7 +23,6 @@ const useAddItem = () => {
         },
         body:JSON.stringify(item)
        })
-      console.log(response.ok)
        if(response.ok){
          dispatch(addToCart({item}));
          toast.success("🎇 Item added into your cart")
@@ -29,9 +30,11 @@ const useAddItem = () => {
      } 
    catch (error) {
     toast.error("Failed to add item into cart",error)
+  }finally{
+    setload(false);
   }
 }
-  return {addItem}
+  return {load,addItem}
 }
 
 

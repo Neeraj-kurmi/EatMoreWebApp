@@ -5,16 +5,18 @@ import { useNavigate } from "react-router-dom";
 import Footer from "../../shared/Footer";
 import { useDispatch } from "react-redux";
 import { addRestaurant } from "../../../redux/Slices/adminSlice";
+import Loader from "../../shared/Loader";
 
 const Home = () => {
   const navigate=useNavigate();
   const dispatch=useDispatch();
-
+  const[loading ,setLoading]=useState(false);   
   const [restaurants,setRestaurants]=useState([]);
 
   useEffect(() => {
     const fetchRestaurants = async () => {
       try {
+        setLoading(true);
         const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/admin/allrestraunt`);
         if (res.ok) {
           const data = await res.json();
@@ -25,6 +27,8 @@ const Home = () => {
         }
       } catch (error) {
         console.error("Error:", error);
+      }finally{
+        setLoading(false);
       }
     };
 
@@ -47,7 +51,10 @@ const Home = () => {
 
       <section className="px-8 py-12">
         <h2 className="text-2xl font-semibold mb-6">Popular Restaurants</h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+        {loading ? <Loader/>
+         :
+
+         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
           {restaurants.map((rest) => (
             <div key={rest.id} className="bg-white rounded-xl shadow-lg overflow-hidden hover:scale-105 transform transition">
               <img src={rest.image} alt={rest.name} className="w-full h-48 object-cover"/>
@@ -63,6 +70,9 @@ const Home = () => {
             </div>
           ))}
         </div>
+        }
+        
+       
       </section>
 
       <section className="bg-gray-100 text-center px-7">

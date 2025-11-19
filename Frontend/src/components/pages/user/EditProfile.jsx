@@ -2,9 +2,11 @@ import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import {setUser} from "/src/redux/Slices/authSlice.js"
 import { toast } from 'sonner';
+import Loader from '../../shared/Loader';
 
 const EditProfile = ({modalHandler}) => {
   
+  const [loading,setLoading]=useState(false);
   const token=useSelector((state)=>state.auth.token);
   const user = useSelector((state) => state.auth.user);
   const dispatch=useDispatch();
@@ -31,6 +33,7 @@ const changeHandler=(e)=>{
   setFormData({...form,[e.target.name]:e.target.value})
 }
 const formHandler=async(e)=>{
+    setLoading(true); 
     e.preventDefault();
     const _id=user.id;
     const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/user/updateUser/${_id}`, {
@@ -43,6 +46,7 @@ const formHandler=async(e)=>{
 
     });
     if (response.ok) {
+      setLoading(false);
       const user = await response.json();
       dispatch(setUser(user))
       modalHandler();
@@ -50,6 +54,7 @@ const formHandler=async(e)=>{
     } else {
       console.error("❌ Error registering user");
     }
+    setLoading(false);
     
 }
 
@@ -160,8 +165,8 @@ const formHandler=async(e)=>{
     <div className='flex items-center gap-3'>
          <button 
          onClick={formHandler}
-    className="w-full text-white bg-gray-800 hover:bg-gray-600 py-2 rounded-lg transition">
-      Update
+    className="w-full text-white bg-gray-800 hover:bg-gray-600 py-2 rounded-lg flex items-center justify-center">
+      {loading?<Loader/>:"Update"}
     </button>
     <button 
     onClick={modalHandler}
