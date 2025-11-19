@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch, useSelector ,useNavigate} from 'react-redux'
 import {setUser} from "/src/redux/Slices/authSlice.js"
 import { toast } from 'sonner';
 import Loader from '../../shared/Loader';
@@ -10,6 +10,7 @@ const EditProfile = ({modalHandler}) => {
   const token=useSelector((state)=>state.auth.token);
   const user = useSelector((state) => state.auth.user);
   const dispatch=useDispatch();
+  const navigate=useNavigate();
 
   const [form , setFormData]=useState({
        firstName:user.firstName,
@@ -49,6 +50,7 @@ const formHandler=async(e)=>{
       setLoading(false);
       const user = await response.json();
       dispatch(setUser(user))
+       navigate("/user/profile")
       modalHandler();
       toast.success("✔️ profile updated successfully ! ")
     } else {
