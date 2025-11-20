@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
-import { useDispatch, useSelector ,useNavigate} from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import {setUser} from "/src/redux/Slices/authSlice.js"
 import { toast } from 'sonner';
 import Loader from '../../shared/Loader';
+import { useNavigate } from 'react-router-dom';
 
 const EditProfile = ({modalHandler}) => {
   
