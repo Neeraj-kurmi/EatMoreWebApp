@@ -50,7 +50,7 @@ const formHandler=async(e)=>{
     if (response.ok) {
       setLoading(false);
       const user = await response.json();
-      dispatch(setUser(user))
+      dispatch(setUser({user,token}))
        navigate("/user/profile")
       modalHandler();
       toast.success("✔️ profile updated successfully ! ")
